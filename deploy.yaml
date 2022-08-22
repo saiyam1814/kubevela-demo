@@ -1,0 +1,60 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: kubevela-saiyam-demo
+spec:
+  components:
+    - name: kubesimplify
+      type: webservice
+      properties:
+        image: saiyam911/kubeworkshop:sha-e9b7f55
+        ports:
+         - port: 8080
+           expose: true
+      traits:
+        - type: scaler
+          properties:
+            replicas: 1
+        - type: env
+          properties:
+            env:
+              PORT: "8080"
+        - type: gateway
+          properties:
+            domain: demo.e07cf142-a0a5-4d86-8874-7a273aef053c.k8s.civo.com
+            http:
+              "/": 8080
+  policies:
+    - name: target-default
+      type: topology
+      properties:
+        # The cluster with name local is installed the KubeVela.
+        clusters: ["local"]
+        namespace: "default"
+    - name: target-prod
+      type: topology
+      properties:
+        clusters: ["kubevela"]
+        # This namespace must be created before deploying.
+        namespace: "prod"
+    - name: deploy-ha
+      type: override
+      properties:
+        components:
+          - type: webservice
+            traits:
+              - type: scaler
+                properties:
+                  replicas: 2
+  workflow:
+    steps:
+      - name: deploy2default
+        type: deploy
+        properties:
+          policies: ["target-default"]
+      - name: manual-approval
+        type: suspend
+      - name: deploy2prod
+        type: deploy
+        properties:
+          policies: ["target-prod", "deploy-ha"]
