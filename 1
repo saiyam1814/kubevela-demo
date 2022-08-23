@@ -1,0 +1,48 @@
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    app.oam.dev/last-applied-configuration: '{"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"oam.dev/kubevela-version":"v1.5.2"},"labels":{"app.oam.dev/app-revision-hash":"1aeb200c28739dc9","app.oam.dev/appRevision":"kubevela-saiyam-demo-v8","app.oam.dev/cluster":"local","app.oam.dev/component":"kubesimplify","app.oam.dev/name":"kubevela-saiyam-demo","app.oam.dev/namespace":"default","app.oam.dev/resourceType":"TRAIT","app.oam.dev/revision":"kubesimplify-v1","oam.dev/render-hash":"8dcab66f1cb869f5","trait.oam.dev/resource":"service","trait.oam.dev/type":"gateway"},"name":"kubesimplify","namespace":"default"},"spec":{"ports":[{"port":8080,"targetPort":8080}],"selector":{"app.oam.dev/component":"kubesimplify"}}}'
+    app.oam.dev/last-applied-time: "2022-08-22T11:46:07Z"
+    oam.dev/kubevela-version: v1.5.2
+  creationTimestamp: "2022-08-22T11:46:07Z"
+  labels:
+    app.oam.dev/app-revision-hash: 1aeb200c28739dc9
+    app.oam.dev/appRevision: kubevela-saiyam-demo-v8
+    app.oam.dev/cluster: local
+    app.oam.dev/component: kubesimplify
+    app.oam.dev/name: kubevela-saiyam-demo
+    app.oam.dev/namespace: default
+    app.oam.dev/resourceType: TRAIT
+    app.oam.dev/revision: kubesimplify-v1
+    oam.dev/render-hash: 8dcab66f1cb869f5
+    trait.oam.dev/resource: service
+    trait.oam.dev/type: gateway
+  name: kubesimplify
+  namespace: default
+  resourceVersion: "92342"
+  uid: a5ab121e-c0f6-4f79-b23c-b549bb62c887
+spec:
+  clusterIP: 10.43.15.105
+  clusterIPs:
+  - 10.43.15.105
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: port-8080
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app.oam.dev/component: kubesimplify
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

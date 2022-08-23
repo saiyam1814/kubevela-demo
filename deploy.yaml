@@ -22,6 +22,7 @@ spec:
         - type: gateway
           properties:
             domain: demo.e07cf142-a0a5-4d86-8874-7a273aef053c.k8s.civo.com
+            class: "traefik"
             http:
               "/": 8080
   policies:
@@ -34,7 +35,7 @@ spec:
     - name: target-prod
       type: topology
       properties:
-        clusters: ["kubevela"]
+        clusters: ["local"]
         # This namespace must be created before deploying.
         namespace: "prod"
     - name: deploy-ha
@@ -46,7 +47,10 @@ spec:
               - type: scaler
                 properties:
                   replicas: 2
-  workflow:
+              - type: gateway
+                properties:
+                  domain: prod.e07cf142-a0a5-4d86-8874-7a273aef053c.k8s.civo.com 
+  workflow:  
     steps:
       - name: deploy2default
         type: deploy
